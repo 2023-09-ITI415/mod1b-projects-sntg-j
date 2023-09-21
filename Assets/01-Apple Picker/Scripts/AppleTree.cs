@@ -32,6 +32,7 @@ public class AppleTree : MonoBehaviour
     {
         GameObject apple = Instantiate<GameObject>(applePrefab);
         apple.transform.position = transform.position;
+        Invoke("DropApple", secondsBetweenAppleDrop);
     }
 
     // Update is called once per frame
