@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 1729739936}
   - component: {fileID: 1729739938}
   - component: {fileID: 1729739937}
+  - component: {fileID: 1729739939}
   m_Layer: 5
   m_Name: HighScore
   m_TagString: Untagged
@@ -770,6 +771,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729739935}
   m_CullTransparentMesh: 1
+--- !u!114 &1729739939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729739935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63b188ae006f24428c72d47bd97a8ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3987678033481344658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -893,7 +906,7 @@ MonoBehaviour:
   speed: 10
   leftAndRightEdge: 10
   chanceToChangeDirection: 0.025
-  secondsBetweenAppleDrop: 2
+  secondsBetweenAppleDrop: 1.25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

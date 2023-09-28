@@ -9,7 +9,7 @@ public class Basket : MonoBehaviour
     [Header("Set Dynamically")]
     public static TextMeshProUGUI scoreGT;
 
-    private void Start()
+    void Start()
     {
         GameObject scoreGO = GameObject.Find("ScoreCounter");
         scoreGT = scoreGO.GetComponent<TextMeshProUGUI>();

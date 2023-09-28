@@ -10,7 +10,7 @@ public class HighScore : MonoBehaviour
 {
     static public int score = 1000;
     // Start is called before the first frame update
-    private void Awake()
+    void Awake()
     {
         if (PlayerPrefs.HasKey("HighScore"))
         {
@@ -23,8 +23,8 @@ public class HighScore : MonoBehaviour
     void Update()
     {
         TextMeshProUGUI gt = this.GetComponent<TextMeshProUGUI>();
-        gt.text = "High Score: " + score;
-        if(score > int.Parse(GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text))
+        gt.text = "HighScore: " + score;
+        if(score > PlayerPrefs.GetInt("HighScore"))
         {
             PlayerPrefs.SetInt("HighScore", score);
         }
