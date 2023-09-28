@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour
 {
@@ -19,7 +22,12 @@ public class HighScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TMP_Text gt = this.GetComponent<TMP_Text>();
+        TextMeshProUGUI gt = this.GetComponent<TextMeshProUGUI>();
         gt.text = "High Score: " + score;
+        if(score > int.Parse(GameObject.Find("ScoreCounter").GetComponent<TextMeshProUGUI>().text))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
+
 }
