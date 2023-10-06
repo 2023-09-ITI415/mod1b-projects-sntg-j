@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 334734889961608449}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7691961166172728180}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ed5e4da85f6d2254aae78025fbf71cb1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

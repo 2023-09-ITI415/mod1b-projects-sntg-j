@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-	static public bool 	goalMet = false;
+	static public bool goalMet = false;
 
 	void OnTriggerEnter(Collider other) {
 		// when the trigger is hit by something
@@ -20,15 +20,4 @@ public class Goal : MonoBehaviour
 			mat.color = c;
 		}
 	}
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
