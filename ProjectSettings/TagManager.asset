@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Apple
   - Projectile
+  - PickUpParent
+  - PickUp
+  - Spikes
+  - Logic
   layers:
   - Default
   - TransparentFX
