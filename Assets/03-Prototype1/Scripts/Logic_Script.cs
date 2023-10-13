@@ -12,6 +12,7 @@ public class Logic_Script : MonoBehaviour
     private int health;
     private int number;
     private int count;
+    private bool milestoneReached = false;
     
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,10 @@ public class Logic_Script : MonoBehaviour
     {
         count++;
         countText.text = "Count: " + count.ToString();
-        if(count >= number / 2)
+        if(count >= number / 2 && !milestoneReached)
         {
             parentprefab.GetComponent<Instantiator>().Pulse();
+            milestoneReached = true;
         }
         if (count >= number)
         {

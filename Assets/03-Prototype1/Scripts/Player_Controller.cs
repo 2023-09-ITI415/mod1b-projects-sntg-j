@@ -5,7 +5,7 @@ using TMPro;
 public class Player_Controller : MonoBehaviour
 {
     public float speed = 0;
-    public int Health = 10;
+    public int Health = 5;
     private Rigidbody rb;
     public Logic_Script Logic;
     private float movementX;
@@ -40,7 +40,7 @@ public class Player_Controller : MonoBehaviour
         if(collidedWith.tag == "PickUp")
         {
             // Destroys the gameObject to quicken the runspeed of the game
-            Destroy(collidedWith);
+            collidedWith.SetActive(false);
             Logic.SetCountText();
         }
     }

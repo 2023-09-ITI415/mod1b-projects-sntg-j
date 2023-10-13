@@ -1,6 +1,8 @@
 using System.Collections;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Instantiator : MonoBehaviour
 {
@@ -9,22 +11,24 @@ public class Instantiator : MonoBehaviour
     public int count = 12;
 
     private int preFabInstances = 0;
-    private float radius = 600f;
-    private float maxRadius;
+    private float radius = 6f;
     private float minRadius = 1.0f;
     private Vector3 spin = new Vector3(0, 10, 0);
-    private float growTime = 6.0f;
+    private GameObject[] preFabArray;
+    private Vector3[] StartPos;
+    private float growTime = 2.0f;
     private float yLocale = 0.5f;
     private float zLocale;
     private float xLocale;
     private float angle;
-    private bool pulsing = false;
+    bool pulsing = false;
 
     // Start is called before the first frame update
     public int getInstanceNums() { return preFabInstances; }
     void Start()
     {
-        maxRadius = radius;
+        StartPos = new Vector3[count];
+        preFabArray = new GameObject[count];
         prefab.GetComponent<GameObject>();
         posFind();
     }
@@ -37,38 +41,55 @@ public class Instantiator : MonoBehaviour
             xLocale = (radius) * Mathf.Cos(i * angle);
             zLocale = (radius) * Mathf.Sin(i * angle);
             Vector3 position = new Vector3(xLocale, yLocale, zLocale);
+            StartPos[i] = position;
             if (i % 2 == 0) {
-                GameObject.Instantiate<GameObject>(prefab, position, Quaternion.identity, GameObject.FindGameObjectWithTag("PickUpParent").transform);
+                preFabArray[i] = GameObject.Instantiate<GameObject>(prefab, position, Quaternion.identity, GameObject.FindGameObjectWithTag("PickUpParent").transform);
                 preFabInstances++;
             }
             else
             {
-                GameObject.Instantiate<GameObject>(spikePrefab, position, Quaternion.identity, GameObject.FindGameObjectWithTag("PickUpParent").transform);
+                preFabArray[i] = GameObject.Instantiate<GameObject>(spikePrefab, position, Quaternion.identity, GameObject.FindGameObjectWithTag("PickUpParent").transform);
             }
         }
     }
+
     void Update()
     {
         transform.Rotate(spin * Time.deltaTime);
-        if (pulsing == true)
+        if(pulsing == true)
         {
-            StartCoroutine(Pulse1());
+            pulsing = false;
+            Pulse();
         }
     }
-    public void Pulse()
+    public void Pulse() {
+        StartCoroutine(Pulse1());
+    }
+
+    private Vector3[] calcRad(GameObject[] P, float startRad, float minRad)
     {
-        pulsing = true;
+        Vector3[] res = new Vector3[P.Length];
+        for (int i = 0; i< P.Length; i++) {
+            res[i] = new Vector3((P[i].transform.localPosition.x / startRad) * minRad, P[i].transform.localPosition.y, (P[i].transform.localPosition.z / startRad) * minRad);
+        }
+        return res;
     }
     private IEnumerator Pulse1() 
     {
         float timer = 0f;
+        
         while(timer < growTime)
         {
-            radius = math.lerp(maxRadius, minRadius, timer/growTime);
+            Vector3[] spkPos = calcRad(preFabArray, radius, minRadius);
+            for(int i = 0; i< preFabArray.Length; i++)
+            {
+                preFabArray[i].transform.localPosition = Vector3.Lerp(preFabArray[i].transform.localPosition, spkPos[i], timer/growTime);
+            }
+            
             timer += Time.deltaTime;
             yield return null;
         }
-        StartCoroutine(Pulse2(pulsing));
+        StartCoroutine(Pulse2());
     }
     private IEnumerator Pulse2()
     {
@@ -76,10 +97,13 @@ public class Instantiator : MonoBehaviour
 
         while (timer < growTime)
         {
-            radius = math.lerp(minRadius, maxRadius, timer / growTime);;
+            for (int i = 0; i < preFabArray.Length; i++)
+            {
+                preFabArray[i].transform.localPosition = Vector3.Lerp(preFabArray[i].transform.localPosition, StartPos[i], timer / growTime);
+            }
             timer += Time.deltaTime;
             yield return null;
         }
-        pulsing = false;
+        pulsing = true;
     }
 }
